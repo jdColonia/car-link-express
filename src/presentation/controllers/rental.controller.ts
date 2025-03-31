@@ -1,8 +1,17 @@
 import { MongoRentalRepository } from "../../infrastructure/repositories/rental.repository";
+import { MongoVehicleUnavailabilityRepository } from "../../infrastructure/repositories/vehicle-unavailability.repository";
+import { MongoVehicleRepository } from "../../infrastructure/repositories/vehicle.repository";
 import { RentalService } from "../../infrastructure/services/rental.service";
 
 const rentalRepository = new MongoRentalRepository();
-const rentalService = new RentalService(rentalRepository);
+const vehicleRepository = new MongoVehicleRepository();
+const vehicleUnavailabilityRepository =
+  new MongoVehicleUnavailabilityRepository();
+const rentalService = new RentalService(
+  rentalRepository,
+  vehicleRepository,
+  vehicleUnavailabilityRepository
+);
 
 export const createRental = async (req: any, res: any): Promise<void> => {
   try {

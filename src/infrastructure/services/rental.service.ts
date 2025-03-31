@@ -5,13 +5,45 @@ import {
 } from "../../domain/dtos/rental.dto";
 import { Rental, RentalStatus } from "../../domain/entities/Rental";
 import { RentalRepository } from "../repositories/rental.repository";
+import { VehicleUnavailabilityRepository } from "../repositories/vehicle-unavailability.repository";
+import { VehicleRepository } from "../repositories/vehicle.repository";
+
 export class RentalService {
-  constructor(private rentalRepository: RentalRepository) {}
+  constructor(
+    private rentalRepository: RentalRepository,
+    private vehicleRepository: VehicleRepository,
+    private vehicleUnavailabilityRepository: VehicleUnavailabilityRepository
+  ) {}
 
   async createRental(
     rental: CreateRentalRequestDto
   ): Promise<GetRentalResponseDto> {
-    const ownerId = "1";
+    // Check if the vehicle exists
+    const vehicle = await this.vehicleRepository.findById(rental.vehicleId);
+    console.log("🚀 ~ RentalService ~ vehicle:", vehicle);
+
+    if (!vehicle) {
+      throw new Error("Vehicle not found");
+    }
+
+    const ownerId = vehicle.ownerId;
+
+    // Check if the vehicle is available for the requested dates
+    const unavailabilities =
+      await this.vehicleUnavailabilityRepository.findByVehicleId(
+        rental.vehicleId
+      );
+    const isUnavailable = unavailabilities.some(
+      (unavailability) =>
+        (rental.startDate >= unavailability.unavailable_to &&
+          rental.startDate <= unavailability.unavailable_from) ||
+        (rental.endDate >= unavailability.unavailable_to &&
+          rental.endDate <= unavailability.unavailable_from)
+    );
+    if (isUnavailable) {
+      throw new Error("Vehicle is not available for the requested dates");
+    }
+
     const newRental = await this.rentalRepository.create({
       id: "",
       status: RentalStatus.PENDING,
