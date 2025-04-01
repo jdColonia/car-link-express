@@ -20,7 +20,9 @@ export interface VehicleUnavailabilityRepository {
  * MongoDB implementation of the VehicleUnavailabilityRepository interface
  * Handles all vehicle availability-related database operations
  */
-export class MongoVehicleUnavailabilityRepository implements VehicleUnavailabilityRepository {
+export class MongoVehicleUnavailabilityRepository
+  implements VehicleUnavailabilityRepository
+{
   /**
    * Retrieves all unavailability periods for a specific vehicle
    * @param vehicleId - The ID of the vehicle
@@ -30,7 +32,7 @@ export class MongoVehicleUnavailabilityRepository implements VehicleUnavailabili
     const vehicle = await vehicleModel
       .findById(vehicleId)
       .select("Availability");
-    return vehicle?.Availability || [];
+    return vehicle?.availability || [];
   }
 
   /**
@@ -39,7 +41,10 @@ export class MongoVehicleUnavailabilityRepository implements VehicleUnavailabili
    * @param unavailability - The unavailability period to add
    * @returns Updated array of all unavailability periods
    */
-  async addUnavailability(vehicleId: string, unavailability: VehicleUnavailability): Promise<VehicleUnavailability[]> {
+  async addUnavailability(
+    vehicleId: string,
+    unavailability: VehicleUnavailability
+  ): Promise<VehicleUnavailability[]> {
     const vehicle = await vehicleModel
       .findByIdAndUpdate(
         vehicleId,
@@ -49,7 +54,7 @@ export class MongoVehicleUnavailabilityRepository implements VehicleUnavailabili
         { new: true }
       )
       .select("Availability");
-    return vehicle?.Availability || [];
+    return vehicle?.availability || [];
   }
 
   /**
@@ -58,7 +63,10 @@ export class MongoVehicleUnavailabilityRepository implements VehicleUnavailabili
    * @param unavailabilityId - The ID of the unavailability period to remove
    * @returns Updated array of all unavailability periods
    */
-  async removeUnavailability(vehicleId: string, unavailabilityId: string): Promise<VehicleUnavailability[]> {
+  async removeUnavailability(
+    vehicleId: string,
+    unavailabilityId: string
+  ): Promise<VehicleUnavailability[]> {
     const vehicle = await vehicleModel
       .findByIdAndUpdate(
         vehicleId,
@@ -68,6 +76,6 @@ export class MongoVehicleUnavailabilityRepository implements VehicleUnavailabili
         { new: true }
       )
       .select("Availability");
-    return vehicle?.Availability || [];
+    return vehicle?.availability || [];
   }
 }
