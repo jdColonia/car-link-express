@@ -1,50 +1,72 @@
-import { Router } from 'express';
-import { getUsers, getProfile, addOwnerRole, addAdminRole, editUser, deleteUser, createUser } from '../controllers/users.controller';
-import { authenticate } from '../middlewares/auth.middleware';
-import { checkRole } from '../middlewares/check-role.middleware';
-import { UserRole } from '../../domain/entities/User';
+import { Router } from "express";
+import {
+  getUsers,
+  getProfile,
+  addOwnerRole,
+  addAdminRole,
+  editUser,
+  deleteUser,
+  createUser,
+} from "../controllers/users.controller";
+import { authenticate } from "../middlewares/auth.middleware";
+import { checkRole } from "../middlewares/check-role.middleware";
+import { UserRole } from "../../domain/entities/User";
 
+/**
+ * Router for user-related operations.
+ */
 const router = Router();
 
-router.get('/',
-  authenticate,
-  checkRole(UserRole.ADMIN),
-  getUsers
-);
+/**
+ * Get all users.
+ * Accessible only to authenticated users with the ADMIN role.
+ */
+router.get("/", authenticate, checkRole(UserRole.ADMIN), getUsers);
 
-router.get('/:userId',
-  authenticate,
-  getProfile
-);
+/**
+ * Get the profile of a specific user by their ID.
+ * Accessible only to authenticated users.
+ */
+router.get("/:userId", authenticate, getProfile);
 
-router.post('/:userId/addOwnerRole',
+/**
+ * Add the OWNER role to a user by their ID.
+ * Accessible only to authenticated users with the TENANT role.
+ */
+router.post(
+  "/:userId/addOwnerRole",
   authenticate,
   checkRole(UserRole.TENANT),
   addOwnerRole
 );
 
-router.post('/:userId/addAdminRole',
+/**
+ * Add the ADMIN role to a user by their ID.
+ * Accessible only to authenticated users with the ADMIN role.
+ */
+router.post(
+  "/:userId/addAdminRole",
   authenticate,
   checkRole(UserRole.ADMIN),
   addAdminRole
 );
 
-router.put('/:userId',
-  authenticate,
-  checkRole(UserRole.ADMIN),
-  editUser
-);
+/**
+ * Edit a user's information by their ID.
+ * Accessible only to authenticated users with the ADMIN role.
+ */
+router.put("/:userId", authenticate, checkRole(UserRole.ADMIN), editUser);
 
-router.delete('/:userId',
-  authenticate,
-  checkRole(UserRole.ADMIN),
-  deleteUser
-);
+/**
+ * Delete a user by their ID.
+ * Accessible only to authenticated users with the ADMIN role.
+ */
+router.delete("/:userId", authenticate, checkRole(UserRole.ADMIN), deleteUser);
 
-router.post('/',
-  authenticate,
-  checkRole(UserRole.ADMIN),
-  createUser
-);
+/**
+ * Create a new user.
+ * Accessible only to authenticated users with the ADMIN role.
+ */
+router.post("/", authenticate, checkRole(UserRole.ADMIN), createUser);
 
-export default router; 
+export default router;

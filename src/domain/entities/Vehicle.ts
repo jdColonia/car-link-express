@@ -23,7 +23,7 @@ export interface Vehicle {
 
   createdAt?: Date; // Date when the vehicle was created (optional)
   updatedAt?: Date; // Date when the vehicle was last updated (optional)
-  Availability?: VehicleUnavailability[]; // List of unavailable periods for the vehicle (optional)
+  availability?: VehicleUnavailability[]; // List of unavailable periods for the vehicle (optional)
 }
 
 /**
