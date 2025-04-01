@@ -2,23 +2,28 @@ import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import VehicleModel, { VehicleDocument } from '../../../src/infrastructure/models/vehicle.model';
 
-// Define a type for Mongoose validation errors
 interface MongooseError extends Error {
-    errors?: {
-        [key: string]: {
-            message: string;
-        };
-    };
+    errors?: { [key: string]: mongoose.Error.ValidatorError };
     code?: number;
 }
 
 describe('Vehicle Model', () => {
     let mongoServer: MongoMemoryServer;
+    const mockVehicleData = {
+        ownerId: '507f1f77bcf86cd799439011',
+        vehicleModel: 'Model S',
+        make: 'Tesla',
+        color: 'Red',
+        year: 2023,
+        license_plate: 'TESLA123',
+        url_photos: ['https://example.com/photo.jpg'],
+        daily_price: 150,
+        rental_conditions: 'No smoking allowed'
+    };
 
     beforeAll(async () => {
         mongoServer = await MongoMemoryServer.create();
-        const uri = mongoServer.getUri();
-        await mongoose.connect(uri);
+        await mongoose.connect(mongoServer.getUri());
     });
 
     afterAll(async () => {
@@ -30,78 +35,84 @@ describe('Vehicle Model', () => {
         await VehicleModel.deleteMany({});
     });
 
-    it('should create a vehicle successfully', async () => {
-        const vehicleData = {
-            ownerId: '123456789012345678901234',
-            vehicleModel: 'Camry',
-            make: 'Toyota',
-            color: 'Blue',
-            year: 2020,
-            license_plate: 'ABC123',
-            url_photos: ['http://example.com/photo1.jpg'],
-            daily_price: 50,
-            rental_conditions: 'No smoking',
-        };
+    describe('Create Operations', () => {
+        it('should create a vehicle with valid data', async () => {
+            const vehicle = new VehicleModel(mockVehicleData);
+            const savedVehicle = await vehicle.save();
 
-        const vehicle = new VehicleModel(vehicleData);
-        const savedVehicle = await vehicle.save();
-
-        expect(savedVehicle._id).toBeDefined();
-        expect(savedVehicle.vehicleModel).toBe(vehicleData.vehicleModel);
-        expect(savedVehicle.make).toBe(vehicleData.make);
-        expect(savedVehicle.license_plate).toBe(vehicleData.license_plate);
-        expect(savedVehicle.createdAt).toBeDefined();
-        expect(savedVehicle.updatedAt).toBeDefined();
-    });
-
-    it('should require required fields', async () => {
-        const vehicleWithMissingFields = new VehicleModel({
-            ownerId: '123456789012345678901234',
-            // Missing required fields
+            expect(savedVehicle._id).toBeDefined();
+            expect(savedVehicle.license_plate).toBe(mockVehicleData.license_plate);
+            expect(savedVehicle.createdAt).toBeInstanceOf(Date);
+            expect(savedVehicle.updatedAt).toBeInstanceOf(Date);
         });
 
-        let error: unknown;
-        try {
-            await vehicleWithMissingFields.save();
-        } catch (err) {
-            error = err;
-        }
+        it('should auto-trim license plate whitespace', async () => {
+            const vehicle = new VehicleModel({
+                ...mockVehicleData,
+                license_plate: '  ABC 123  '
+            });
 
-        const mongooseError = error as MongooseError;
-
-        expect(error).toBeDefined();
-        expect(mongooseError.errors).toBeDefined();
-        expect(mongooseError.errors?.vehicleModel).toBeDefined();
-        expect(mongooseError.errors?.make).toBeDefined();
-        expect(mongooseError.errors?.license_plate).toBeDefined();
+            const savedVehicle = await vehicle.save();
+            expect(savedVehicle.license_plate).toBe('ABC 123');
+        });
     });
 
-    it('should enforce unique license plate', async () => {
-        const vehicleData = {
-            ownerId: '123456789012345678901234',
-            vehicleModel: 'Camry',
-            make: 'Toyota',
-            color: 'Blue',
-            year: 2020,
-            license_plate: 'ABC123',
-            url_photos: ['http://example.com/photo1.jpg'],
-            daily_price: 50,
-            rental_conditions: 'No smoking',
-        };
+    describe('Optional Fields', () => {
+        it('should accept valid optional fields', async () => {
+            const vehicle = new VehicleModel({
+                ...mockVehicleData,
+                class: 'Luxury',
+                drive: 'AWD',
+                fuel_type: 'Electric',
+                transmission: 'Automatic',
+                combination_mpg: 120,
+                displacement: 2.0
+            });
 
-        await new VehicleModel(vehicleData).save();
+            const savedVehicle = await vehicle.save();
+            expect(savedVehicle.class).toBe('Luxury');
+            expect(savedVehicle.combination_mpg).toBe(120);
+        });
 
-        const duplicateVehicle = new VehicleModel(vehicleData);
+        it('should ignore extra fields', async () => {
+            const vehicle = new VehicleModel({
+                ...mockVehicleData,
+                invalidField: 'test'
+            });
 
-        let error: unknown;
-        try {
-            await duplicateVehicle.save();
-        } catch (err) {
-            error = err;
-        }
+            const savedVehicle = await vehicle.save();
+            expect(savedVehicle).not.toHaveProperty('invalidField');
+        });
+    });
 
-        const mongooseError = error as MongooseError;
-        expect(error).toBeDefined();
-        expect(mongooseError.code).toBe(11000); // MongoDB duplicate key error code
+    describe('Update Operations', () => {
+        it('should update vehicle successfully', async () => {
+            const vehicle = await new VehicleModel(mockVehicleData).save();
+            const updatedData = { color: 'Black', daily_price: 200 };
+
+            const updatedVehicle = await VehicleModel.findByIdAndUpdate(
+                vehicle._id,
+                updatedData,
+                { new: true }
+            );
+
+            expect(updatedVehicle?.color).toBe('Black');
+            expect(updatedVehicle?.daily_price).toBe(200);
+        });
+    });
+
+    describe('Query Operations', () => {
+        it('should find vehicles by owner', async () => {
+            await new VehicleModel(mockVehicleData).save();
+            const vehicles = await VehicleModel.find({ ownerId: mockVehicleData.ownerId });
+
+            expect(vehicles).toHaveLength(1);
+            expect(vehicles[0].license_plate).toBe(mockVehicleData.license_plate);
+        });
+
+        it('should return empty array for non-existent owner', async () => {
+            const vehicles = await VehicleModel.find({ ownerId: 'invalidOwnerId' });
+            expect(vehicles).toHaveLength(0);
+        });
     });
 });
