@@ -20,7 +20,6 @@ export class RentalService {
   ): Promise<GetRentalResponseDto> {
     // Check if the vehicle exists
     const vehicle = await this.vehicleRepository.findById(rental.vehicleId);
-    console.log("🚀 ~ RentalService ~ vehicle:", vehicle);
 
     if (!vehicle) {
       throw new Error("Vehicle not found");
@@ -60,6 +59,22 @@ export class RentalService {
     }
 
     return this.mapToResponse(rental);
+  }
+
+  async getRentalByOwnerId(id: string): Promise<RentalListResponseDto> {
+    const rentals = await this.rentalRepository.findByOwner(id);
+    if (!rentals || rentals.length === 0) {
+      throw new Error("No rentals found for this owner");
+    }
+    return rentals.map(this.mapToResponse);
+  }
+
+  async getRentalByClientId(id: string): Promise<RentalListResponseDto> {
+    const rentals = await this.rentalRepository.findByClient(id);
+    if (!rentals || rentals.length === 0) {
+      throw new Error("No rentals found for this client");
+    }
+    return rentals.map(this.mapToResponse);
   }
 
   async getAllRentals(): Promise<RentalListResponseDto> {

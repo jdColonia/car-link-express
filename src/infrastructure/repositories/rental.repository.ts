@@ -7,22 +7,33 @@ export interface RentalRepository {
   create(rental: Rental): Promise<Rental>;
   update(id: string, rental: Partial<Rental>): Promise<Rental | null>;
   delete(id: string): Promise<boolean>;
+  findByOwner(ownerId: string): Promise<Rental[]>;
+  findByClient(clientId: string): Promise<Rental[]>;
 }
 
 export class MongoRentalRepository implements RentalRepository {
+  async create(rental: Rental): Promise<Rental> {
+    const newRental = await rentalModel.create(rental);
+    return this.documentToEntity(newRental);
+  }
   async findById(id: string): Promise<Rental | null> {
     const rental = await rentalModel.findById(id);
     return rental ? this.documentToEntity(rental) : null;
   }
 
-  async findAll(): Promise<Rental[]> {
-    const rentals = await rentalModel.find();
+  async findByOwner(ownerId: string): Promise<Rental[]> {
+    const rentals = await rentalModel.find({ ownerId });
     return rentals.map(this.documentToEntity);
   }
 
-  async create(rental: Rental): Promise<Rental> {
-    const newRental = await rentalModel.create(rental);
-    return this.documentToEntity(newRental);
+  async findByClient(clientId: string): Promise<Rental[]> {
+    const rentals = await rentalModel.find({ clientId });
+    return rentals.map(this.documentToEntity);
+  }
+
+  async findAll(): Promise<Rental[]> {
+    const rentals = await rentalModel.find();
+    return rentals.map(this.documentToEntity);
   }
 
   async update(id: string, rental: Partial<Rental>): Promise<Rental | null> {
