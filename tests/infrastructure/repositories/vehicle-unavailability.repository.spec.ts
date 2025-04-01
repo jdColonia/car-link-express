@@ -239,10 +239,3 @@ describe("MongoVehicleUnavailabilityRepository", () => {
     });
   });
 });
-
-// Log output to show test structure
-console.log("Vehicle Unavailability Repository Tests structure:");
-console.log("- findByVehicleId");
-console.log("- addUnavailability");
-console.log("- removeUnavailability");
-console.log("- edge cases");
