@@ -4,7 +4,7 @@ import { SignupRequestDto, LoginRequestDto, SignUpResponseDto, LoginResponseDto 
 import { UserRepository } from '../repositories/user.repository';
 import userModel from '../models/user.model';
 import bcrypt from 'bcrypt';
-import { GetProfileResponseDto, GetUsersResponseDto } from '../../domain/dtos/users.dto';
+import { EditUserDto, GetProfileResponseDto, GetUsersResponseDto } from '../../domain/dtos/users.dto';
 
 export class UserService {
   constructor(private userRepository: UserRepository) { }
@@ -75,6 +75,39 @@ export class UserService {
       email: user.email,
       roles: user.roles,
     } as GetProfileResponseDto;
+  }
+
+  async editUser(userId: string, editUserDto: EditUserDto): Promise<GetProfileResponseDto>{
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const updatedUser = await this.userRepository.update(userId, editUserDto);
+    if (!updatedUser) {
+      throw new Error('User update failed');
+    }
+
+    return {
+      id: updatedUser.id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      roles: updatedUser.roles,
+    } as GetProfileResponseDto;
+  }
+
+  async deleteUser(userId: string): Promise<Boolean>{
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const deletedUser = await this.userRepository.delete(userId);
+    
+    if (!deletedUser) {
+      throw new Error('User deletion failed');
+    }
+    return true;
   }
 
   async getUsers(): Promise<GetUsersResponseDto> {

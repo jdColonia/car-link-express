@@ -7,4 +7,9 @@ export interface GetProfileResponseDto {
     roles: UserRole[];
 }
 
+export interface EditUserDto {
+    username?: string;
+    email?: string;
+}
+
 export interface GetUsersResponseDto extends Array<GetProfileResponseDto> {}
