@@ -12,13 +12,30 @@ import { RentalRepository } from "../repositories/rental.repository";
 import { VehicleUnavailabilityRepository } from "../repositories/vehicle-unavailability.repository";
 import { VehicleRepository } from "../repositories/vehicle.repository";
 
+/**
+ * Service class responsible for handling rental business logic
+ * Coordinates between rental, vehicle, and availability repositories
+ */
 export class RentalService {
+  /**
+   * Creates a new RentalService instance
+   * @param rentalRepository - Repository for rental data operations
+   * @param vehicleRepository - Repository for vehicle data operations
+   * @param vehicleUnavailabilityRepository - Repository for vehicle availability operations
+   */
   constructor(
     private rentalRepository: RentalRepository,
     private vehicleRepository: VehicleRepository,
     private vehicleUnavailabilityRepository: VehicleUnavailabilityRepository
-  ) {}
+  ) { }
 
+  /**
+   * Creates a new rental and marks the vehicle as unavailable for the rental period
+   * @param rental - The rental request data
+   * @returns The created rental information
+   * @throws NotFoundError if the vehicle doesn't exist
+   * @throws BadRequestError if the vehicle is not available for the requested dates
+   */
   async createRental(
     rental: CreateRentalRequestDto
   ): Promise<GetRentalResponseDto> {
@@ -70,6 +87,12 @@ export class RentalService {
     return this.mapToResponse(newRental);
   }
 
+  /**
+   * Retrieves a rental by its ID
+   * @param id - The rental ID to retrieve
+   * @returns The rental information
+   * @throws NotFoundError if the rental doesn't exist
+   */
   async getRentalById(id: string): Promise<GetRentalResponseDto | null> {
     const rental = await this.rentalRepository.findById(id);
     if (!rental) {
@@ -79,6 +102,12 @@ export class RentalService {
     return this.mapToResponse(rental);
   }
 
+  /**
+   * Retrieves all rentals associated with a specific owner
+   * @param id - The owner ID
+   * @returns List of rentals belonging to the owner
+   * @throws NotFoundError if no rentals are found for the owner
+   */
   async getRentalByOwnerId(id: string): Promise<RentalListResponseDto> {
     const rentals = await this.rentalRepository.findByOwner(id);
     if (!rentals || rentals.length === 0) {
@@ -87,6 +116,12 @@ export class RentalService {
     return rentals.map(this.mapToResponse);
   }
 
+  /**
+   * Retrieves all rentals associated with a specific client
+   * @param id - The client ID
+   * @returns List of rentals belonging to the client
+   * @throws NotFoundError if no rentals are found for the client
+   */
   async getRentalByClientId(id: string): Promise<RentalListResponseDto> {
     const rentals = await this.rentalRepository.findByClient(id);
     if (!rentals || rentals.length === 0) {
@@ -95,6 +130,11 @@ export class RentalService {
     return rentals.map(this.mapToResponse);
   }
 
+  /**
+   * Retrieves all rentals in the system
+   * @returns List of all rentals
+   * @throws NotFoundError if no rentals are found
+   */
   async getAllRentals(): Promise<RentalListResponseDto> {
     const rentals = await this.rentalRepository.findAll();
     if (!rentals || rentals.length === 0) {
@@ -103,6 +143,14 @@ export class RentalService {
     return rentals.map(this.mapToResponse);
   }
 
+  /**
+   * Updates an existing rental
+   * @param id - The ID of the rental to update
+   * @param rental - The updated rental data
+   * @returns The updated rental information
+   * @throws NotFoundError if the rental doesn't exist
+   * @throws BadRequestError if the update operation fails
+   */
   async updateRental(
     id: string,
     rental: Partial<Rental>
@@ -118,6 +166,12 @@ export class RentalService {
     return this.mapToResponse(updatedRental);
   }
 
+  /**
+   * Deletes a rental by its ID
+   * @param id - The ID of the rental to delete
+   * @returns Boolean indicating success or failure
+   * @throws NotFoundError if the rental doesn't exist
+   */
   async deleteRental(id: string): Promise<boolean> {
     const rental = await this.rentalRepository.findById(id);
     if (!rental) {
@@ -126,6 +180,12 @@ export class RentalService {
     return this.rentalRepository.delete(id);
   }
 
+  /**
+   * Maps a rental entity to a response DTO
+   * @param rental - The rental entity to map
+   * @returns The rental response DTO
+   * @private
+   */
   private mapToResponse(rental: Rental): GetRentalResponseDto {
     return {
       id: rental.id,

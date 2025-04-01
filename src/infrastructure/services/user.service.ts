@@ -6,9 +6,23 @@ import userModel from '../models/user.model';
 import bcrypt from 'bcrypt';
 import { EditUserDto, GetProfileResponseDto, GetUsersResponseDto } from '../../domain/dtos/users.dto';
 
+/**
+ * Service class responsible for handling user-related business logic
+ * Manages user authentication, profile operations, and role management
+ */
 export class UserService {
+  /**
+   * Creates a new UserService instance
+   * @param userRepository - Repository for user data operations
+   */
   constructor(private userRepository: UserRepository) { }
 
+  /**
+   * Registers a new user in the system
+   * @param signupDto - User registration data
+   * @returns Token and user information
+   * @throws Error if user with email or username already exists
+   */
   async signup(signupDto: SignupRequestDto): Promise<SignUpResponseDto> {
     // Check if user already exists
     const existingUser = await this.userRepository.findByEmail(signupDto.email);
@@ -41,6 +55,12 @@ export class UserService {
     } as SignUpResponseDto;
   }
 
+  /**
+   * Authenticates a user and generates an access token
+   * @param loginDto - User login credentials
+   * @returns Authentication token
+   * @throws Error if credentials are invalid
+   */
   async login(loginDto: LoginRequestDto): Promise<LoginResponseDto> {
     try {
 
@@ -63,6 +83,12 @@ export class UserService {
     }
   }
 
+  /**
+   * Creates a new user (admin operation)
+   * @param signupDto - User creation data
+   * @returns Created user profile information
+   * @throws Error if user with email or username already exists
+   */
   async createUser(signupDto: SignupRequestDto): Promise<GetProfileResponseDto> {
     // Check if user already exists
     const existingUser = await this.userRepository.findByEmail(signupDto.email);
@@ -90,6 +116,12 @@ export class UserService {
     } as GetProfileResponseDto;
   }
 
+  /**
+   * Retrieves a user's profile information
+   * @param userId - The user ID to retrieve
+   * @returns User profile information
+   * @throws Error if the user doesn't exist
+   */
   async getProfile(userId: string): Promise<GetProfileResponseDto>{
     const user = await this.userRepository.findById(userId);
     if (!user) {
@@ -103,6 +135,13 @@ export class UserService {
     } as GetProfileResponseDto;
   }
 
+  /**
+   * Updates a user's profile information
+   * @param userId - The ID of the user to update
+   * @param editUserDto - The updated user data
+   * @returns Updated user profile information
+   * @throws Error if the user doesn't exist or update fails
+   */
   async editUser(userId: string, editUserDto: EditUserDto): Promise<GetProfileResponseDto>{
     const user = await this.userRepository.findById(userId);
     if (!user) {
@@ -122,6 +161,12 @@ export class UserService {
     } as GetProfileResponseDto;
   }
 
+  /**
+   * Deletes a user from the system
+   * @param userId - The ID of the user to delete
+   * @returns Boolean indicating success
+   * @throws Error if the user doesn't exist or deletion fails
+   */
   async deleteUser(userId: string): Promise<Boolean>{
     const user = await this.userRepository.findById(userId);
     if (!user) {
@@ -136,10 +181,15 @@ export class UserService {
     return true;
   }
 
+  /**
+   * Retrieves all users in the system
+   * @returns List of all users
+   * @throws Error if no users are found
+   */
   async getUsers(): Promise<GetUsersResponseDto> {
-    const users = await this.userRepository.findAll();
+    const users = await this.userRepository.findAll()
     if (!users) {
-      throw new Error('No users found');
+      throw new Error("No users found")
     }
     return users.map((user) => ({
       id: user.id,
@@ -149,6 +199,13 @@ export class UserService {
     })) as GetUsersResponseDto;
   }
 
+  /**
+   * Adds a role to a user
+   * @param userId - The ID of the user
+   * @param newRole - The role to add
+   * @returns Updated token and user information
+   * @throws Error if the user doesn't exist, role is invalid, or update fails
+   */
   async addUserRole(userId: string, newRole: UserRole): Promise<SignUpResponseDto> {
     const user = await this.userRepository.findById(userId);
     if (!user) {
@@ -188,6 +245,13 @@ export class UserService {
 
   }
 
+  /**
+   * Generates a JWT token for a user
+   * @param user - The user to generate a token for
+   * @returns JWT token string
+   * @throws Error if JWT_SECRET environment variable is not defined
+   * @private
+   */
   private generateToken(user: User): string {
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not defined in environment variables');
@@ -203,5 +267,4 @@ export class UserService {
       { expiresIn: '24h' }
     );
   }
-
-} 
+}
