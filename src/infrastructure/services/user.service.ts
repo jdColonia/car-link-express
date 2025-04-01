@@ -59,7 +59,6 @@ export class UserService {
         token: token 
       } as LoginResponseDto;
     } catch (error) {
-      console.error('Error in login:', error);
       throw new Error(error instanceof Error ? error.message : String(error));
     }
   }
