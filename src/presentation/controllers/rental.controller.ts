@@ -1,4 +1,5 @@
 import { RentalStatus } from "../../domain/entities/Rental";
+import { errorHandler } from "../../domain/exceptions/exceptions";
 import { MongoRentalRepository } from "../../infrastructure/repositories/rental.repository";
 import { MongoVehicleUnavailabilityRepository } from "../../infrastructure/repositories/vehicle-unavailability.repository";
 import { MongoVehicleRepository } from "../../infrastructure/repositories/vehicle.repository";
@@ -20,20 +21,16 @@ export const createRental = async (req: any, res: any): Promise<void> => {
     const rental = await rentalService.createRental(req.body);
     res.status(201).json(rental);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
 export const deleteRental = async (req: any, res: any): Promise<void> => {
   try {
-    const deleted = await rentalService.deleteRental(req.params.id);
-    if (!deleted) {
-      res.status(404).json({ message: "Rental not found" });
-      return;
-    }
+    await rentalService.deleteRental(req.params.id);
     res.status(204).send();
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
@@ -46,7 +43,7 @@ export const getRentalById = async (req: any, res: any): Promise<void> => {
     }
     res.status(200).json(rental);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
@@ -55,14 +52,14 @@ export const getOwnerRents = async (
   res: Response
 ): Promise<void> => {
   try {
-    if (!req.params) {
-      res.status(400).json({ message: "Request param is missing" });
+    if (!req.user || !req.user.id) {
+      res.status(401).json({ message: "Authentication required" });
       return;
     }
-    const rentals = await rentalService.getRentalByOwnerId(req.params.ownerId);
+    const rentals = await rentalService.getRentalByOwnerId(req.user.id);
     res.status(200).json(rentals);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
@@ -71,16 +68,14 @@ export const getClientRents = async (
   res: Response
 ): Promise<void> => {
   try {
-    if (!req.params) {
-      res.status(400).json({ message: "Request param is missing" });
+    if (!req.user || !req.user.id) {
+      res.status(401).json({ message: "Authentication required" });
       return;
     }
-    const rentals = await rentalService.getRentalByClientId(
-      req.params.clientId
-    );
+    const rentals = await rentalService.getRentalByClientId(req.user.id);
     res.status(200).json(rentals);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
@@ -89,20 +84,16 @@ export const getAllRentals = async (req: any, res: any): Promise<void> => {
     const rentals = await rentalService.getAllRentals();
     res.status(200).json(rentals);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
 export const updateRental = async (req: any, res: any): Promise<void> => {
   try {
     const rental = await rentalService.updateRental(req.params.id, req.body);
-    if (!rental) {
-      res.status(404).json({ message: "Rental not found" });
-      return;
-    }
     res.status(200).json(rental);
   } catch (error: any) {
-    res.status(400).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
@@ -111,13 +102,9 @@ export const confirmRental = async (req: any, res: any): Promise<void> => {
     const rental = await rentalService.updateRental(req.params.id, {
       status: RentalStatus.CONFIRMED,
     });
-    if (!rental) {
-      res.status(404).json({ message: "Rental not found" });
-      return;
-    }
     res.status(200).json(rental);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };
 
@@ -126,12 +113,8 @@ export const cancelRental = async (req: any, res: any): Promise<void> => {
     const rental = await rentalService.updateRental(req.params.id, {
       status: RentalStatus.CANCELLED,
     });
-    if (!rental) {
-      res.status(404).json({ message: "Rental not found" });
-      return;
-    }
     res.status(200).json(rental);
   } catch (error: any) {
-    res.status(500).json({ message: error.message });
+    errorHandler(error, res);
   }
 };

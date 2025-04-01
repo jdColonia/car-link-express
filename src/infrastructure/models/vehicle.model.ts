@@ -84,7 +84,7 @@ const VehicleSchema: Schema = new Schema(
     displacement: {
       type: Number,
     },
-    Availability: {
+    availability: {
       type: [VehicleUnavailabilitySchema],
       default: [],
     },
