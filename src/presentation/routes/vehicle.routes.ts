@@ -24,6 +24,12 @@ router.get('/',
     authenticate,
     getAllVehicles);
 
+router.get('/myVehicles',
+    authenticate,
+    checkRole(UserRole.OWNER),
+    getMyVehicles
+);
+
 router.get('/:id',
     authenticate,
     getVehicleById);
@@ -31,12 +37,6 @@ router.get('/:id',
 router.get('/license/:licensePlate',
     authenticate,
     getVehicleByLicensePlate);
-
-router.get('/my-vehicles',
-    authenticate,
-    checkRole(UserRole.OWNER),
-    getMyVehicles
-);
 
 router.put('/:id',
     authenticate,
