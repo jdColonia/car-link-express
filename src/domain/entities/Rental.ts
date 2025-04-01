@@ -15,4 +15,5 @@ export enum RentalStatus {
   COMPLETED = "completed",
   CANCELLED = "cancelled",
   EXPIRED = "expired",
+  EXTENDED = "extended",
 }
