@@ -120,15 +120,3 @@ describe("Rental Entity", () => {
     expect(mockRental.ownerId).toMatch(idRegex);
   });
 });
-
-// Log output to show test structure
-console.log("Rental Entity Tests structure:");
-console.log("- Required properties validation");
-console.log("- Optional properties validation");
-console.log("- Property types validation");
-console.log("- Date ordering validation");
-console.log("- Minimal configuration test");
-console.log("- RentalStatus enum validation");
-console.log("- Total cost validation");
-console.log("- Rental duration calculation");
-console.log("- ID format validation");

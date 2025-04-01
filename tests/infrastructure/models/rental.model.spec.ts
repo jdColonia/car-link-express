@@ -242,11 +242,3 @@ describe("Rental Model", () => {
     });
   });
 });
-
-// Log output to show test structure
-console.log("Rental Model Tests structure:");
-console.log("- Create Operations");
-console.log("- Default Values");
-console.log("- Enum Validation");
-console.log("- Update Operations");
-console.log("- Query Operations");

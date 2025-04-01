@@ -343,14 +343,3 @@ describe("RentalService", () => {
     });
   });
 });
-
-// Log output to show test structure
-console.log("Rental Service Tests structure:");
-console.log("- createRental");
-console.log("- getRentalById");
-console.log("- getRentalByOwnerId");
-console.log("- getRentalByClientId");
-console.log("- getAllRentals");
-console.log("- updateRental");
-console.log("- deleteRental");
-console.log("- mapToResponse");

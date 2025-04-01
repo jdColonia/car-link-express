@@ -202,10 +202,3 @@ describe("Rental DTOs", () => {
     });
   });
 });
-
-// Log output to show test structure
-console.log("Rental DTO Tests structure:");
-console.log("- CreateRentalRequestDto tests");
-console.log("- GetRentalResponseDto tests");
-console.log("- UpdateRentalRequestDto tests");
-console.log("- RentalListResponseDto tests");

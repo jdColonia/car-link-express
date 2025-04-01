@@ -194,14 +194,3 @@ describe("MongoRentalRepository", () => {
     });
   });
 });
-
-// Log output to show test structure
-console.log("Rental Repository Tests structure:");
-console.log("- create");
-console.log("- findAll");
-console.log("- findById");
-console.log("- findByOwner");
-console.log("- findByClient");
-console.log("- update");
-console.log("- delete");
-console.log("- documentToEntity conversion");
