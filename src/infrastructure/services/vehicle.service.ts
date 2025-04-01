@@ -6,6 +6,11 @@ import {
     UpdateVehicleRequestDto,
     VehicleListResponseDto,
 } from '../../domain/dtos/vehicle.dto';
+import {
+    NotFoundError,
+    ForbiddenError,
+    BadRequestError,
+} from '../../domain/exceptions/exceptions';
 import axios from 'axios';
 
 const API_URL = 'https://api.api-ninjas.com/v1/cars';
@@ -22,7 +27,7 @@ export class VehicleService {
             createDto.license_plate
         );
         if (existingVehicle) {
-            throw new Error('Vehicle with this license plate already exists');
+            throw new BadRequestError('Vehicle with this license plate already exists');
         }
 
         // Llamada a la API externa para obtener los datos adicionales
@@ -40,8 +45,8 @@ export class VehicleService {
 
     async getAllVehicles(): Promise<VehicleListResponseDto> {
         const vehicles = await this.vehicleRepository.findAll();
-        if (!vehicles) {
-            throw new Error('No vehicles found');
+        if (!vehicles.length) {
+            throw new NotFoundError('Vehicles not found');
         }
         return vehicles.map(this.mapToResponseDto);
     }
@@ -49,7 +54,7 @@ export class VehicleService {
     async getVehicleById(id: string): Promise<GetVehicleResponseDto> {
         const vehicle = await this.vehicleRepository.findById(id);
         if (!vehicle) {
-            throw new Error('Vehicle not found');
+            throw new NotFoundError('Vehicle not found');
         }
         return this.mapToResponseDto(vehicle);
     }
@@ -57,15 +62,15 @@ export class VehicleService {
     async getVehicleByLicensePlate(licensePlate: string): Promise<GetVehicleResponseDto> {
         const vehicle = await this.vehicleRepository.findByLicensePlate(licensePlate);
         if (!vehicle) {
-            throw new Error('Vehicle not found');
+            throw new NotFoundError('Vehicle not found');
         }
         return this.mapToResponseDto(vehicle);
     }
 
     async getVehiclesByOwner(ownerId: string): Promise<VehicleListResponseDto> {
         const vehicles = await this.vehicleRepository.findByOwner(ownerId);
-        if (!vehicles) {
-            throw new Error('Vehicles not found');
+        if (!vehicles.length) {
+            throw new NotFoundError('Vehicles not found');
         }
         return vehicles.map(this.mapToResponseDto);
     }
@@ -78,15 +83,15 @@ export class VehicleService {
         // Verificar que el vehículo existe y pertenece al propietario
         const existingVehicle = await this.vehicleRepository.findById(id);
         if (!existingVehicle) {
-            throw new Error('Vehicle not found');
+            throw new NotFoundError('Vehicle not found');
         }
         if (existingVehicle.ownerId !== ownerId) {
-            throw new Error('You are not the owner of this vehicle');
+            throw new ForbiddenError('You are not the owner of this vehicle');
         }
 
         const updatedVehicle = await this.vehicleRepository.update(id, updateDto);
         if (!updatedVehicle) {
-            throw new Error('Failed to update vehicle');
+            throw new BadRequestError('Failed to update vehicle');
         }
 
         return this.mapToResponseDto(updatedVehicle);
@@ -96,10 +101,10 @@ export class VehicleService {
         // Verificar que el vehículo existe y pertenece al propietario
         const existingVehicle = await this.vehicleRepository.findById(id);
         if (!existingVehicle) {
-            throw new Error('Vehicle not found');
+            throw new NotFoundError('Vehicle not found');
         }
         if (existingVehicle.ownerId !== ownerId) {
-            throw new Error('You are not the owner of this vehicle');
+            throw new ForbiddenError('You are not the owner of this vehicle');
         }
 
         return await this.vehicleRepository.delete(id);
