@@ -27,7 +27,7 @@ export class RentalService {
     private rentalRepository: RentalRepository,
     private vehicleRepository: VehicleRepository,
     private vehicleUnavailabilityRepository: VehicleUnavailabilityRepository
-  ) { }
+  ) {}
 
   /**
    * Creates a new rental and marks the vehicle as unavailable for the rental period
@@ -74,15 +74,20 @@ export class RentalService {
     });
 
     // Add the rental period as unavailable dates for the vehicle
-    await this.vehicleUnavailabilityRepository.addUnavailability(
-      rental.vehicleId,
-      {
-        id: "",
-        vehicle_id: rental.vehicleId,
-        unavailable_from: rental.startDate,
-        unavailable_to: rental.endDate,
-      }
-    );
+    const availables =
+      await this.vehicleUnavailabilityRepository.addUnavailability(
+        rental.vehicleId,
+        {
+          id: "",
+          vehicle_id: rental.vehicleId,
+          unavailable_from: rental.startDate,
+          unavailable_to: rental.endDate,
+        }
+      );
+
+    if (!availables) {
+      throw new BadRequestError("Failed to update vehicle availability");
+    }
 
     return this.mapToResponse(newRental);
   }

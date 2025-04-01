@@ -2,7 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import { Vehicle, VehicleUnavailability } from "../../domain/entities/Vehicle";
 
 // VehicleDocument interface extends Vehicle, omitting the "id" field and including Document for Mongoose document methods
-export interface VehicleDocument extends Omit<Vehicle, "id">, Document { }
+export interface VehicleDocument extends Omit<Vehicle, "id">, Document {}
 
 // Mongoose Schema for Vehicle Unavailability
 const VehicleUnavailabilitySchema: Schema = new Schema(
@@ -21,7 +21,7 @@ const VehicleUnavailabilitySchema: Schema = new Schema(
     },
   },
   {
-    _id: false, // Do not create an _id field for unavailability entries
+    timestamps: true, // Do not create an _id field for unavailability entries
   }
 );
 

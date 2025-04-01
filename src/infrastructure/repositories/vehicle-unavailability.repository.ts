@@ -31,7 +31,7 @@ export class MongoVehicleUnavailabilityRepository
   async findByVehicleId(vehicleId: string): Promise<VehicleUnavailability[]> {
     const vehicle = await vehicleModel
       .findById(vehicleId)
-      .select("Availability");
+      .select("availability");
     return vehicle?.availability || [];
   }
 
@@ -49,11 +49,11 @@ export class MongoVehicleUnavailabilityRepository
       .findByIdAndUpdate(
         vehicleId,
         {
-          $push: { Availability: unavailability },
+          $push: { availability: unavailability },
         },
         { new: true }
       )
-      .select("Availability");
+      .select("availability");
     return vehicle?.availability || [];
   }
 
@@ -71,11 +71,11 @@ export class MongoVehicleUnavailabilityRepository
       .findByIdAndUpdate(
         vehicleId,
         {
-          $pull: { Availability: { id: unavailabilityId } },
+          $pull: { availability: { id: unavailabilityId } },
         },
         { new: true }
       )
-      .select("Availability");
+      .select("availability");
     return vehicle?.availability || [];
   }
 }
