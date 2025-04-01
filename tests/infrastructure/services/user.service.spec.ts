@@ -404,5 +404,3 @@ describe('UserService', () => {
     });
   });
 });
-
-console.log('User service tests completed successfully!');
