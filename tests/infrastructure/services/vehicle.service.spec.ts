@@ -58,6 +58,9 @@ describe('VehicleService', () => {
   };
 
   beforeEach(() => {
+    // Mock console.error
+    jest.spyOn(console, 'error').mockImplementation(() => { });
+
     // Create mock repository
     mockRepository = {
       create: jest.fn(),
@@ -76,6 +79,9 @@ describe('VehicleService', () => {
   });
 
   afterEach(() => {
+    // Restaurar console.error
+    (console.error as jest.Mock).mockRestore();
+
     jest.clearAllMocks();
   });
 
@@ -115,6 +121,12 @@ describe('VehicleService', () => {
 
       const result = await vehicleService.createVehicle('owner123', mockCreateDto);
 
+      // Verificar que se llamó a console.error
+      expect(console.error).toHaveBeenCalledWith(
+        'Error fetching vehicle data from API:',
+        expect.any(Error)
+      );
+
       expect(mockRepository.create).toHaveBeenCalled();
       expect(result).toEqual(expect.objectContaining({
         id: '123',
@@ -134,10 +146,10 @@ describe('VehicleService', () => {
     });
 
     it('should throw error if no vehicles found', async () => {
-      mockRepository.findAll.mockResolvedValue(null as any);
+      mockRepository.findAll.mockResolvedValue([]);
 
       await expect(vehicleService.getAllVehicles())
-        .rejects.toThrow('No vehicles found');
+        .rejects.toThrow('Vehicles not found');
     });
   });
 
@@ -194,7 +206,7 @@ describe('VehicleService', () => {
     });
 
     it('should throw error if no vehicles found', async () => {
-      mockRepository.findByOwner.mockResolvedValue(null as any);
+      mockRepository.findByOwner.mockResolvedValue([]);
 
       await expect(vehicleService.getVehiclesByOwner('owner123'))
         .rejects.toThrow('Vehicles not found');

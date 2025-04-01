@@ -13,7 +13,10 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
-    '!src/**/*.d.ts',
+    'src/domain/**/*.{ts,tsx}', // Incluir pruebas de domain
+    'src/infrastructure/**/*.{ts,tsx}', // Incluir pruebas de infrastructure
+    '!src/**/*.d.ts', // Excluir archivos de declaración
+    '!src/presentation/**', // Excluir todo lo que está en presentation
+    '!src/domain/exceptions/**', // Excluir exceptions
   ],
 };

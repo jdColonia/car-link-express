@@ -28,6 +28,35 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+
+export const editUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { username, email } = req.body;
+
+    if (username === undefined && email === undefined) {
+      res.status(400).json({ message: "At least one field (username or email) is required" });
+    }
+
+    const updatedUser = await userService.editUser(req.params.userId, {username, email});
+
+    res.status(200).json(updatedUser);
+
+  } catch (error: any) {
+    res.status(error.message === 'User not found' ? 404 : 500).json({ message: error.message });
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const deletedUser = await userService.deleteUser(req.params.userId);
+
+    res.status(200).json(deletedUser);
+
+  } catch (error: any) {
+    res.status(error.message === 'User not found' ? 404 : 500).json({ message: error.message });
+  }
+};
+
 export const addOwnerRole = async (req: Request, res: Response): Promise<void> => {
   try {
     const updatedUser = await userService.addUserRole(req.params.userId, UserRole.OWNER);
