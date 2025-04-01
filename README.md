@@ -1,10 +1,10 @@
 # CAR LINK API
 
-Alejandro londoño Bermúdez - A00395978
+# Authors
 
-Juan David Colonia - A00395956
-
-Miguel Ángel Martinez - A00395687
+> - Alejandro Londoño Bermúdez - A00395978
+> - Juan David Colonia Aldana - A00395956
+> - Miguel Ángel Gonzalez Arango - A00395687
 
 
 # API Documentation
