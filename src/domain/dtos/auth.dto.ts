@@ -1,21 +1,33 @@
 import { GetProfileResponseDto } from "./users.dto";
 
+/**
+ * DTO for user signup request.
+ */
 export interface SignupRequestDto {
-    username: string;
-    email: string;
-    password: string;
+  username: string; // Username
+  email: string; // Email address
+  password: string; // Password
 }
 
+/**
+ * DTO for login request.
+ */
 export interface LoginRequestDto {
-  email: string;
-  password: string;
+  email: string; // Email address
+  password: string; // Password
 }
 
+/**
+ * DTO for login response.
+ */
 export interface LoginResponseDto {
-  token: string;
+  token: string; // Authentication token
 }
 
+/**
+ * DTO for signup response.
+ */
 export interface SignUpResponseDto {
-  token: string;
-  user: GetProfileResponseDto
+  token: string; // Authentication token
+  user: GetProfileResponseDto; // Registered user data
 }
