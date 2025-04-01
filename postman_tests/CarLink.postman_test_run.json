@@ -1,0 +1,1789 @@
+{
+	"id": "c304817e-aea5-439f-a29d-276020104e0d",
+	"name": "CarLink",
+	"timestamp": "2025-04-01T20:49:27.549Z",
+	"collection_id": "31976014-22eead89-5e5e-4c46-9c10-49b9e7397742",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 107,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-04-01T20:48:46.351Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "718c8dd0-606a-4f20-96bc-976a137acf51",
+			"name": "SIGNUP",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/signup",
+			"time": 292,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Código de estado es 201": true,
+				"La respuesta contiene un token": true,
+				"El usuario tiene el rol 'tenant'": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta contiene un token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"El usuario tiene el rol 'tenant'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				292
+			],
+			"allTests": [
+				{
+					"Código de estado es 201": true,
+					"La respuesta contiene un token": true,
+					"El usuario tiene el rol 'tenant'": true
+				}
+			]
+		},
+		{
+			"id": "07a3e4e0-011f-4ca4-a6de-1044b95a1d21",
+			"name": "LOGIN TENANT USER",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/login",
+			"time": 325,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true,
+				"La respuesta contiene un token": true,
+				"El token tiene formato JWT": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta contiene un token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"El token tiene formato JWT": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				325
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true,
+					"La respuesta contiene un token": true,
+					"El token tiene formato JWT": true
+				}
+			]
+		},
+		{
+			"id": "6c176d53-2ccf-42bf-bfa3-80761ecf10cb",
+			"name": "CHECK ADMIN ROLES TO TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/admin",
+			"time": 145,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 403": true,
+				"Response is JSON": true,
+				"Message is 'Insufficient permissions'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Insufficient permissions'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				145
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Response is JSON": true,
+					"Message is 'Insufficient permissions'": true
+				}
+			]
+		},
+		{
+			"id": "11ddb3fd-924a-408d-87f2-4e7f5550b6c6",
+			"name": "CHECK TENANT ROLES TO TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/tenant",
+			"time": 154,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is JSON": true,
+				"Message is 'Hello Tenant!'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Hello Tenant!'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				154
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is JSON": true,
+					"Message is 'Hello Tenant!'": true
+				}
+			]
+		},
+		{
+			"id": "b327ff74-9968-448a-8355-0996873fd13c",
+			"name": "CHECK OWNER ROLES TO TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/owner",
+			"time": 100,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 403": true,
+				"Response is JSON": true,
+				"Message is 'Insufficient permissions'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Insufficient permissions'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				100
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Response is JSON": true,
+					"Message is 'Insufficient permissions'": true
+				}
+			]
+		},
+		{
+			"id": "e6f9ea02-9c55-4e2b-86e6-9db8b49689b8",
+			"name": "GET USER BY ID",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5130532eeeb01f2d0fb9",
+			"time": 229,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true,
+				"La respuesta contiene un id de usuario": true,
+				"El usuario tiene el rol 'tenant'": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta contiene un id de usuario": {
+					"pass": 1,
+					"fail": 0
+				},
+				"El usuario tiene el rol 'tenant'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				229
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true,
+					"La respuesta contiene un id de usuario": true,
+					"El usuario tiene el rol 'tenant'": true
+				}
+			]
+		},
+		{
+			"id": "2472fb16-0f32-40c9-8325-312e437eacef",
+			"name": "ADD OWNER ROLE TO TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5130532eeeb01f2d0fb9/addOwnerRole",
+			"time": 142,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true,
+				"La respuesta contiene un token": true,
+				"El usuario tiene los roles 'tenant' y 'owner'": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta contiene un token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"El usuario tiene los roles 'tenant' y 'owner'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				142
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true,
+					"La respuesta contiene un token": true,
+					"El usuario tiene los roles 'tenant' y 'owner'": true
+				}
+			]
+		},
+		{
+			"id": "587f076f-1dbe-40f1-967a-b181e6693198",
+			"name": "CHECK ADMIN ROLES TO OWNER AND TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/admin",
+			"time": 163,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 403": true,
+				"Response is JSON": true,
+				"Message is 'Insufficient permissions'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Insufficient permissions'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				163
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Response is JSON": true,
+					"Message is 'Insufficient permissions'": true
+				}
+			]
+		},
+		{
+			"id": "26b2930e-de0a-4ae2-b0d4-abaf01b6959b",
+			"name": "CHECK TENANT ROLES TO OWNER AND TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/tenant",
+			"time": 142,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is JSON": true,
+				"Message is 'Hello Tenant!'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Hello Tenant!'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				142
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is JSON": true,
+					"Message is 'Hello Tenant!'": true
+				}
+			]
+		},
+		{
+			"id": "9b46642c-ec44-4e4c-8913-101a2a37b270",
+			"name": "CHECK OWNER ROLES TO OWNER AND TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/owner",
+			"time": 151,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is JSON": true,
+				"Message is 'Hello Owner!'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Hello Owner!'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				151
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is JSON": true,
+					"Message is 'Hello Owner!'": true
+				}
+			]
+		},
+		{
+			"id": "35879dd5-bacb-4199-8bc6-f023bf7707c8",
+			"name": "GET USERS WITHOUT ADMIN ROLE",
+			"url": "https://car-link-express-production.up.railway.app/api/users/",
+			"time": 128,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 403": true,
+				"Response is JSON": true,
+				"Message is 'Insufficient permissions'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Insufficient permissions'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				128
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Response is JSON": true,
+					"Message is 'Insufficient permissions'": true
+				}
+			]
+		},
+		{
+			"id": "777f435c-eb17-4cc9-8467-842bf08f1fd9",
+			"name": "EDIT USER WITHOUT ADMIN ROLE",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5130532eeeb01f2d0fb9",
+			"time": 164,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 403": true,
+				"Response is JSON": true,
+				"Message is 'Insufficient permissions'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Insufficient permissions'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				164
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Response is JSON": true,
+					"Message is 'Insufficient permissions'": true
+				}
+			]
+		},
+		{
+			"id": "9d64fbc0-e3a5-4b35-aee6-71faa0b81bd0",
+			"name": "DELETE USER WITHOUT ADMIN ROLE Copy",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5130532eeeb01f2d0fb9",
+			"time": 177,
+			"responseCode": {
+				"code": 403,
+				"name": "Forbidden"
+			},
+			"tests": {
+				"Status code is 403": true,
+				"Response is JSON": true,
+				"Message is 'Insufficient permissions'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 403": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Insufficient permissions'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				177
+			],
+			"allTests": [
+				{
+					"Status code is 403": true,
+					"Response is JSON": true,
+					"Message is 'Insufficient permissions'": true
+				}
+			]
+		},
+		{
+			"id": "3158bc7d-4572-4a5e-8ae5-411051233896",
+			"name": "LOGIN ADMIN USER",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/login",
+			"time": 235,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true,
+				"La respuesta contiene un token": true,
+				"El token tiene formato JWT": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta contiene un token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"El token tiene formato JWT": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				235
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true,
+					"La respuesta contiene un token": true,
+					"El token tiene formato JWT": true
+				}
+			]
+		},
+		{
+			"id": "d0660333-25d3-43d9-84bb-5418bf94c08f",
+			"name": "ADD ADMIN ROLE TO OWNER AND TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5130532eeeb01f2d0fb9/addAdminRole",
+			"time": 276,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true,
+				"La respuesta contiene un token": true,
+				"El usuario tiene los roles 'tenant', 'owner' y 'admin'": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta contiene un token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"El usuario tiene los roles 'tenant', 'owner' y 'admin'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				276
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true,
+					"La respuesta contiene un token": true,
+					"El usuario tiene los roles 'tenant', 'owner' y 'admin'": true
+				}
+			]
+		},
+		{
+			"id": "3f649cea-8b6b-4257-911e-c8ba0a374241",
+			"name": "CHECK ADMIN ROLES TO ADMIN, OWNER AND TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/admin",
+			"time": 275,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is JSON": true,
+				"Message is 'Hello Admin!'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Hello Admin!'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				275
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is JSON": true,
+					"Message is 'Hello Admin!'": true
+				}
+			]
+		},
+		{
+			"id": "5308f74e-3d39-4ff7-b163-6c6cc9101583",
+			"name": "CHECK TENANT ROLES TO ADMIN, OWNER AND TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/tenant",
+			"time": 164,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is JSON": true,
+				"Message is 'Hello Tenant!'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Hello Tenant!'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				164
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is JSON": true,
+					"Message is 'Hello Tenant!'": true
+				}
+			]
+		},
+		{
+			"id": "4da0ba61-12be-4dc7-810a-8860ab2d0767",
+			"name": "CHECK OWNER ROLES TO ADMIN, OWNER AND TENANT",
+			"url": "https://car-link-express-production.up.railway.app/api/auth/test/owner",
+			"time": 118,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is JSON": true,
+				"Message is 'Hello Owner!'": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Message is 'Hello Owner!'": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				118
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is JSON": true,
+					"Message is 'Hello Owner!'": true
+				}
+			]
+		},
+		{
+			"id": "3f1d6dc9-bf53-4a97-9dc8-01deaa8a98c2",
+			"name": "GET USERS WITH ADMIN ROLE Copy",
+			"url": "https://car-link-express-production.up.railway.app/api/users/",
+			"time": 320,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true,
+				"La respuesta contiene al menos un usuario": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta contiene al menos un usuario": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				320
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true,
+					"La respuesta contiene al menos un usuario": true
+				}
+			]
+		},
+		{
+			"id": "8a903249-0507-4451-a2eb-50306c5909d9",
+			"name": "EDIT USER WITH ADMIN ROLE",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5130532eeeb01f2d0fb9",
+			"time": 150,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true,
+				"La respuesta es un JSON": true,
+				"El email se ha actualizado correctamente": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta es un JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"El email se ha actualizado correctamente": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				150
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true,
+					"La respuesta es un JSON": true,
+					"El email se ha actualizado correctamente": true
+				}
+			]
+		},
+		{
+			"id": "66aeb5f4-aeaf-42dc-948d-6ac1b8e76e65",
+			"name": "DELETE USER WITH ADMIN ROLE",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5130532eeeb01f2d0fb9",
+			"time": 168,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				168
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true
+				}
+			]
+		},
+		{
+			"id": "b63469a3-2ea7-4aa4-92e6-99c57428bd79",
+			"name": "CREATE USER WITH ADMIN ROLE",
+			"url": "https://car-link-express-production.up.railway.app/api/users/",
+			"time": 359,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Código de estado es 201": true,
+				"La respuesta es un JSON": true,
+				"Los datos del usuario son correctos": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"La respuesta es un JSON": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Los datos del usuario son correctos": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				359
+			],
+			"allTests": [
+				{
+					"Código de estado es 201": true,
+					"La respuesta es un JSON": true,
+					"Los datos del usuario son correctos": true
+				}
+			]
+		},
+		{
+			"id": "e2d7c804-c690-43a0-b072-bc082e4e3a35",
+			"name": "DELETE USER WITH ADMIN ROLE",
+			"url": "https://car-link-express-production.up.railway.app/api/users/67ec5135532eeeb01f2d0fcb",
+			"time": 158,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Código de estado es 200": true
+			},
+			"testPassFailCounts": {
+				"Código de estado es 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				158
+			],
+			"allTests": [
+				{
+					"Código de estado es 200": true
+				}
+			]
+		},
+		{
+			"id": "4be3c624-0376-4f7e-a9cf-446ce36635d0",
+			"name": "Create Vehicle",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles",
+			"time": 308,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has vehicle data": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has vehicle data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				308
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has vehicle data": true
+				}
+			]
+		},
+		{
+			"id": "2bdffca7-a6e0-44be-a1e0-d2b04c8dd818",
+			"name": "Create Vehicle With License Plate Duplicated (Error Test)",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles",
+			"time": 215,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				215
+			],
+			"allTests": [
+				{
+					"Status code is 400": true,
+					"Error message is correct": true
+				}
+			]
+		},
+		{
+			"id": "be27bc72-a4fd-4cb8-8b53-ab8e3cbcf012",
+			"name": "Get All Vehicles",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles",
+			"time": 231,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				231
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "1dba46b4-8c9d-4a9c-b0b4-af2420b2a237",
+			"name": "Get My Vehicles",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/myVehicles",
+			"time": 740,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true,
+				"Save my vehicle data if available": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Save my vehicle data if available": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				740
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true,
+					"Save my vehicle data if available": true
+				}
+			]
+		},
+		{
+			"id": "735bbfea-765c-4638-ba38-644112b6579a",
+			"name": "Get Vehicle by ID",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/67ec5138532eeeb01f2d0fd0",
+			"time": 136,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Vehicle ID matches requested ID": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Vehicle ID matches requested ID": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				136
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Vehicle ID matches requested ID": true
+				}
+			]
+		},
+		{
+			"id": "8fdcedd4-39bd-4ef3-be49-0076a5691484",
+			"name": "Get Non-existent Vehicle by ID (Error Test)",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/123456789012345678901234",
+			"time": 176,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				176
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Error message is correct": true
+				}
+			]
+		},
+		{
+			"id": "19147e24-5faa-439b-9f88-7890708b17f1",
+			"name": "Get Vehicle by License Plate",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/license/TEST9052",
+			"time": 355,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"License plate matches requested license plate": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"License plate matches requested license plate": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				355
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"License plate matches requested license plate": true
+				}
+			]
+		},
+		{
+			"id": "bf33da32-f453-4a1a-87a4-1fb8abfe06ca",
+			"name": "Get Non-existent Vehicle by License Plate (Error Test)",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/license/ABC123",
+			"time": 138,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				138
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Error message is correct": true
+				}
+			]
+		},
+		{
+			"id": "a725454b-5b7f-4ade-b202-2bc08572740e",
+			"name": "Update Vehicle",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/67ec5138532eeeb01f2d0fd0",
+			"time": 136,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Vehicle was updated correctly": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Vehicle was updated correctly": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				136
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Vehicle was updated correctly": true
+				}
+			]
+		},
+		{
+			"id": "15e183e2-81ae-4bb8-840f-623b15445491",
+			"name": "Update Non-existent Vehicle (Error Test)",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/123456789012345678901234",
+			"time": 156,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				156
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Error message is correct": true
+				}
+			]
+		},
+		{
+			"id": "abcc8c03-44d3-4721-a909-7840e218728c",
+			"name": "Delete Vehicle",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/67ec5138532eeeb01f2d0fd0",
+			"time": 150,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				150
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "3edf93dd-eab1-4be0-bacf-6ab39372e032",
+			"name": "Delete Non-existent Vehicle (Error Test)",
+			"url": "https://car-link-express-production.up.railway.app/api/vehicles/123456789012345678901234",
+			"time": 127,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				127
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Error message is correct": true
+				}
+			]
+		},
+		{
+			"id": "924b2e30-74bc-4168-9e4d-972ee2cd6676",
+			"name": "Create Rental",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/",
+			"time": 172,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true,
+				"Response has rental data": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response has rental data": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				172
+			],
+			"allTests": [
+				{
+					"Status code is 201": true,
+					"Response has rental data": true
+				}
+			]
+		},
+		{
+			"id": "68addf6d-5825-4e54-b930-0f9ccd838f31",
+			"name": "Get All Rentals",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals",
+			"time": 161,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response is an array": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response is an array": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				161
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response is an array": true
+				}
+			]
+		},
+		{
+			"id": "0d671c7b-1f31-4e75-acfc-6d699edee706",
+			"name": "Get Rental by ID",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/67ec5156532eeeb01f2d0fe6",
+			"time": 262,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Rental ID matches requested ID": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Rental ID matches requested ID": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				262
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Rental ID matches requested ID": true
+				}
+			]
+		},
+		{
+			"id": "635f593e-0593-4273-9f73-0f4c231a1edf",
+			"name": "Get Non-existent Rental by ID (Error Test)",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/123456789012345678901234",
+			"time": 163,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				163
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Error message is correct": true
+				}
+			]
+		},
+		{
+			"id": "7eb1f4d1-cc0e-453d-9e43-94886953c8b4",
+			"name": "Update Rental",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/67ec5156532eeeb01f2d0fe6",
+			"time": 166,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Rental was updated correctly": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Rental was updated correctly": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				166
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Rental was updated correctly": true
+				}
+			]
+		},
+		{
+			"id": "828cfe03-10e2-4e4d-aa45-0035f8e51f26",
+			"name": "Update Non-existent Rental",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/123456789012345678901234",
+			"time": 153,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				153
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Error message is correct": true
+				}
+			]
+		},
+		{
+			"id": "732f979d-cff4-44b9-a8a5-67d6adcb58b7",
+			"name": "Confirm Rental",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/67ec5156532eeeb01f2d0fe6/confirm",
+			"time": 177,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Rental was updated correctly": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Rental was updated correctly": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				177
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Rental was updated correctly": true
+				}
+			]
+		},
+		{
+			"id": "28fef90d-42fa-4545-8891-714de6d2bfe6",
+			"name": "Cancel Rental",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/67ec5156532eeeb01f2d0fe6/cancel",
+			"time": 175,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Rental was updated correctly": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Rental was updated correctly": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				175
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Rental was updated correctly": true
+				}
+			]
+		},
+		{
+			"id": "19195585-7ac6-4ac5-ac52-97f82098a257",
+			"name": "Delete Rental",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/67ec5156532eeeb01f2d0fe6",
+			"time": 145,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status code is 204": true
+			},
+			"testPassFailCounts": {
+				"Status code is 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				145
+			],
+			"allTests": [
+				{
+					"Status code is 204": true
+				}
+			]
+		},
+		{
+			"id": "734c83cb-303a-4fba-8638-b3290eab79d7",
+			"name": "Delete Non-existent Rental",
+			"url": "https://car-link-express-production.up.railway.app/api/rentals/123456789012345678901234",
+			"time": 140,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status code is 404": true,
+				"Error message is correct": true
+			},
+			"testPassFailCounts": {
+				"Status code is 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is correct": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				140
+			],
+			"allTests": [
+				{
+					"Status code is 404": true,
+					"Error message is correct": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 9117,
+	"collection": {
+		"requests": [
+			{
+				"id": "718c8dd0-606a-4f20-96bc-976a137acf51",
+				"method": "POST"
+			},
+			{
+				"id": "07a3e4e0-011f-4ca4-a6de-1044b95a1d21",
+				"method": "POST"
+			},
+			{
+				"id": "6c176d53-2ccf-42bf-bfa3-80761ecf10cb",
+				"method": "GET"
+			},
+			{
+				"id": "11ddb3fd-924a-408d-87f2-4e7f5550b6c6",
+				"method": "GET"
+			},
+			{
+				"id": "b327ff74-9968-448a-8355-0996873fd13c",
+				"method": "GET"
+			},
+			{
+				"id": "e6f9ea02-9c55-4e2b-86e6-9db8b49689b8",
+				"method": "GET"
+			},
+			{
+				"id": "2472fb16-0f32-40c9-8325-312e437eacef",
+				"method": "POST"
+			},
+			{
+				"id": "587f076f-1dbe-40f1-967a-b181e6693198",
+				"method": "GET"
+			},
+			{
+				"id": "26b2930e-de0a-4ae2-b0d4-abaf01b6959b",
+				"method": "GET"
+			},
+			{
+				"id": "9b46642c-ec44-4e4c-8913-101a2a37b270",
+				"method": "GET"
+			},
+			{
+				"id": "35879dd5-bacb-4199-8bc6-f023bf7707c8",
+				"method": "GET"
+			},
+			{
+				"id": "777f435c-eb17-4cc9-8467-842bf08f1fd9",
+				"method": "PUT"
+			},
+			{
+				"id": "9d64fbc0-e3a5-4b35-aee6-71faa0b81bd0",
+				"method": "DELETE"
+			},
+			{
+				"id": "3158bc7d-4572-4a5e-8ae5-411051233896",
+				"method": "POST"
+			},
+			{
+				"id": "d0660333-25d3-43d9-84bb-5418bf94c08f",
+				"method": "POST"
+			},
+			{
+				"id": "3f649cea-8b6b-4257-911e-c8ba0a374241",
+				"method": "GET"
+			},
+			{
+				"id": "5308f74e-3d39-4ff7-b163-6c6cc9101583",
+				"method": "GET"
+			},
+			{
+				"id": "4da0ba61-12be-4dc7-810a-8860ab2d0767",
+				"method": "GET"
+			},
+			{
+				"id": "3f1d6dc9-bf53-4a97-9dc8-01deaa8a98c2",
+				"method": "GET"
+			},
+			{
+				"id": "8a903249-0507-4451-a2eb-50306c5909d9",
+				"method": "PUT"
+			},
+			{
+				"id": "66aeb5f4-aeaf-42dc-948d-6ac1b8e76e65",
+				"method": "DELETE"
+			},
+			{
+				"id": "b63469a3-2ea7-4aa4-92e6-99c57428bd79",
+				"method": "POST"
+			},
+			{
+				"id": "e2d7c804-c690-43a0-b072-bc082e4e3a35",
+				"method": "DELETE"
+			},
+			{
+				"id": "4be3c624-0376-4f7e-a9cf-446ce36635d0",
+				"method": "POST"
+			},
+			{
+				"id": "2bdffca7-a6e0-44be-a1e0-d2b04c8dd818",
+				"method": "POST"
+			},
+			{
+				"id": "be27bc72-a4fd-4cb8-8b53-ab8e3cbcf012",
+				"method": "GET"
+			},
+			{
+				"id": "1dba46b4-8c9d-4a9c-b0b4-af2420b2a237",
+				"method": "GET"
+			},
+			{
+				"id": "735bbfea-765c-4638-ba38-644112b6579a",
+				"method": "GET"
+			},
+			{
+				"id": "8fdcedd4-39bd-4ef3-be49-0076a5691484",
+				"method": "GET"
+			},
+			{
+				"id": "19147e24-5faa-439b-9f88-7890708b17f1",
+				"method": "GET"
+			},
+			{
+				"id": "bf33da32-f453-4a1a-87a4-1fb8abfe06ca",
+				"method": "GET"
+			},
+			{
+				"id": "a725454b-5b7f-4ade-b202-2bc08572740e",
+				"method": "PUT"
+			},
+			{
+				"id": "15e183e2-81ae-4bb8-840f-623b15445491",
+				"method": "PUT"
+			},
+			{
+				"id": "abcc8c03-44d3-4721-a909-7840e218728c",
+				"method": "DELETE"
+			},
+			{
+				"id": "3edf93dd-eab1-4be0-bacf-6ab39372e032",
+				"method": "DELETE"
+			},
+			{
+				"id": "924b2e30-74bc-4168-9e4d-972ee2cd6676",
+				"method": "POST"
+			},
+			{
+				"id": "68addf6d-5825-4e54-b930-0f9ccd838f31",
+				"method": "GET"
+			},
+			{
+				"id": "0d671c7b-1f31-4e75-acfc-6d699edee706",
+				"method": "GET"
+			},
+			{
+				"id": "635f593e-0593-4273-9f73-0f4c231a1edf",
+				"method": "GET"
+			},
+			{
+				"id": "7eb1f4d1-cc0e-453d-9e43-94886953c8b4",
+				"method": "PUT"
+			},
+			{
+				"id": "828cfe03-10e2-4e4d-aa45-0035f8e51f26",
+				"method": "PUT"
+			},
+			{
+				"id": "732f979d-cff4-44b9-a8a5-67d6adcb58b7",
+				"method": "PUT"
+			},
+			{
+				"id": "28fef90d-42fa-4545-8891-714de6d2bfe6",
+				"method": "PUT"
+			},
+			{
+				"id": "19195585-7ac6-4ac5-ac52-97f82098a257",
+				"method": "DELETE"
+			},
+			{
+				"id": "734c83cb-303a-4fba-8638-b3290eab79d7",
+				"method": "DELETE"
+			}
+		]
+	}
+}
