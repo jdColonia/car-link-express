@@ -64,6 +64,33 @@ export class UserService {
     }
   }
 
+  async createUser(signupDto: SignupRequestDto): Promise<GetProfileResponseDto> {
+    // Check if user already exists
+    const existingUser = await this.userRepository.findByEmail(signupDto.email);
+    if (existingUser) {
+      throw new Error('User with this email already exists');
+    }
+
+    const existingUsername = await this.userRepository.findByUsername(signupDto.username);
+    if (existingUsername) {
+      throw new Error('Username is already taken');
+    }
+
+    const newUser = await this.userRepository.create({
+      ...signupDto,
+      roles: [UserRole.TENANT],
+      id: ''
+    });
+
+
+    return {
+        id: newUser.id!,
+        username: newUser.username,
+        email: newUser.email,
+        roles: newUser.roles,
+    } as GetProfileResponseDto;
+  }
+
   async getProfile(userId: string): Promise<GetProfileResponseDto>{
     const user = await this.userRepository.findById(userId);
     if (!user) {
