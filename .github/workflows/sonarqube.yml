@@ -41,7 +41,7 @@ jobs:
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.TOKEN_SONAR }}
-          SONAR_HOST_URL: http://52.174.107.31:9000
+          SONAR_HOST_URL: ${{ secrets.URL_SONAR }}
         run: |
           sonar-scanner \
             -Dsonar.projectKey=car_link_express \
