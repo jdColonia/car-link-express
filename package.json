@@ -12,6 +12,11 @@
     "test:coverage": "jest --coverage",
     "init-roles": "ts-node src/infrastructure/scripts/init-roles.ts"
   },
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "test-report.xml",
+    "sonarQubeVersion": "9.9"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CarLinkTeam/car_link_express.git"
@@ -35,6 +40,8 @@
     "@types/supertest": "^6.0.3",
     "axios-mock-adapter": "^2.1.0",
     "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
+    "jest-sonar-reporter": "^2.0.0",
     "mongodb-memory-server": "^10.1.4",
     "nodemon": "^3.1.9",
     "supertest": "^7.1.0",

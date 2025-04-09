@@ -1,0 +1,55 @@
+name: SonarQube Analysis with Jest Coverage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sonar-analysis:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests with coverage
+        run: npm run test:coverage
+
+      - name: Set up Java (for SonarScanner)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install SonarScanner
+        run: |
+          wget -q https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip -q sonar-scanner-cli-5.0.1.3006-linux.zip
+          echo "SONAR_SCANNER_HOME=$PWD/sonar-scanner-5.0.1.3006-linux" >> $GITHUB_ENV
+          echo "$PWD/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
+
+      - name: SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.TOKEN_SONAR }}
+          SONAR_HOST_URL: http://52.174.107.31:9000
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=car_link_express \
+            -Dsonar.projectName=CarLink-Express \
+            -Dsonar.sources=src \
+            -Dsonar.tests=tests \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
+            -Dsonar.testExecutionReportPaths=coverage/test-report.xml \
+            -Dsonar.token=$SONAR_TOKEN \
+            -Dsonar.host.url=$SONAR_HOST_URL

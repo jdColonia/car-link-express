@@ -19,4 +19,18 @@ module.exports = {
     '!src/presentation/**', // Excluir todo lo que está en presentation
     '!src/domain/exceptions/**', // Excluir exceptions
   ],
-};
+  reporters: [
+    'default',
+    ['jest-junit', {
+      outputDirectory: 'coverage',
+      outputName: 'junit-report.xml',
+      classNameTemplate: '{classname}',
+      titleTemplate: '{title}',
+      ancestorSeparator: ' > ',
+      suiteNameTemplate: '{filename}',
+      usePathForSuiteName: true
+    }]
+  ],
+  coverageReporters: ['lcov', 'text-summary'],
+  testResultsProcessor: "jest-sonar-reporter"
+}
